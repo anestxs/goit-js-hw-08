@@ -91,8 +91,8 @@ gallery.addEventListener("click", (event) => {
     <img src="${original}" width="800" height="600">
     `);
     instance.show();
+    document.addEventListener("keydown", exitFromModal);
   };
-  document.addEventListener("keydown", exitFromModal);
 });
 
 
@@ -100,8 +100,8 @@ function exitFromModal(event) {
   console.log(event);
     if (event.key === "Escape") { 
       instance.close();
+      document.removeEventListener("keydown", (exitFromModal));
     }
-    document.removeEventListener("keydown", (exitFromModal));
 }
     
 
