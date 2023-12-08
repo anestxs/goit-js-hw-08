@@ -92,9 +92,9 @@ gallery.addEventListener("click", (event) => {
     `);
     instance.show();
   };
+  document.addEventListener("keydown", exitFromModal);
 });
 
-document.addEventListener("keydown", exitFromModal);
 
 function exitFromModal(event) {
   console.log(event);
