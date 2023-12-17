@@ -62,13 +62,13 @@ const images = [
         "https://cdn.pixabay.com/photo/2019/05/17/04/35/lighthouse-4208843_1280.jpg",
       description: "Lighthouse Coast Sea",
     },
-  ];
+];
 
 const gallery = document.querySelector("ul.gallery");
 
 gallery.innerHTML = images.reduce((html, image) => html + 
 `<li class="gallery-item"> 
-    <a class="gallery-link" href="">
+    <a class="gallery-link" href="${image.original}">
 <img
   class="gallery-image"
   src="${image.preview}"
@@ -84,26 +84,30 @@ let instance;
 
 gallery.addEventListener("click", (event) => {
   event.preventDefault();
+
   if (event.target.nodeName === "IMG") { 
     const original = event.target.getAttribute("data-source");
     console.log(original);
+
     instance = basicLightbox.create(`
     <img src="${original}" width="800" height="600">
-    `);
+    `, 
+    {
+      onShow: () => { document.addEventListener("keydown", exitFromModal) },
+      onClose: () => { document.removeEventListener("keydown", exitFromModal) }
+    });
+
     instance.show();
-    document.addEventListener("keydown", exitFromModal);
   };
 });
 
 
 function exitFromModal(event) {
   console.log(event);
-    if (event.key === "Escape") { 
-      instance.close();
-      document.removeEventListener("keydown", (exitFromModal));
-    }
+  
+  if (event.key === "Escape") { 
+    instance.close();
+  }
 }
-    
-
 
 
